@@ -33,6 +33,7 @@ contract Bet {
         decimals = priceFeed.decimals();
     }
 
+    // price goes up
     function betLong() public {
         require(!longBet, "Already bet long.");
         longBet = true;
@@ -42,6 +43,7 @@ contract Bet {
         startBet();
     }
 
+    // price goes down
     function betShort() public {
         require(!shortBet, "Already bet short.");
         shortBet = true;
@@ -51,6 +53,7 @@ contract Bet {
         startBet();
     }
 
+    // back out on deal
     function withdrawLong() public {
         require(!betStarted, "Bet has started.");
         require(msg.sender == longBetter, "Invalid long better.");
@@ -58,6 +61,7 @@ contract Bet {
         longBet = false;
     }
 
+    // back out on deal
     function withdrawShort() public {
         require(!betStarted, "Bet has started.");
         require(msg.sender == shortBetter, "Invalid short better.");
@@ -65,6 +69,7 @@ contract Bet {
         shortBet = false;
     }
 
+    // set the winner
     function setWinner() public {
         require(betStarted, "Bet has not started.");
         require(block.timestamp > betEndTime, "Bet has not finished.");
@@ -78,6 +83,7 @@ contract Bet {
         selfdestruct(payable(msg.sender));
     }
 
+    // get daily average price
     function getAveragePrice() private view returns (uint256) {
         uint256 count = 1;
         uint256 totalPrice;
@@ -96,6 +102,7 @@ contract Bet {
         return (totalPrice / count);
     }
 
+    // start the bet
     function startBet() private {
         (betStartPrice, ) = getLatestPrice();
     }
