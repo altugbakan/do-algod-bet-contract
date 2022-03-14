@@ -9,3 +9,7 @@ compiler:
 dotenv: .env
 wallets:
   from_key: ${PRIVATE_KEY}
+networks:
+  mainnet:
+    price_feed: '0x91E9331556ED76C9393055719986409e11b56f73'
+    bet_token: '0xdac17f958d2ee523a2206206994597c13d831ec7'
